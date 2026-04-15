@@ -1,0 +1,19 @@
+---
+import * as post from "../content/about.md";
+import Content from "../content/about.md";
+
+const posts = Object.values(
+	import.meta.glob("../content/*.md", { eager: true }),
+);
+
+const heads = await post.getHeadings();
+let t = heads.map(item => {
+	return `<a href='#${item.slug}'>${item.text}</a>`;
+});
+---
+
+<aside style="border: 1px solid #040;" set:html={t}>
+</aside>
+<p>{post.frontmatter.title}</p>
+<p>Written by: {post.frontmatter.author}</p>
+<Content />
